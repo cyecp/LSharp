@@ -35,8 +35,16 @@ namespace UnitTest
             }
             catch (Exception err)
             {
-                this.Log_Error(err.ToString());
-                this.Log_Error("模块未加载完成，请检查错误");
+                try
+                {
+                    env.LoadModule(ms, null, null);
+                    Log_Error("符号文件无法识别");
+                }
+                catch
+                {
+                    this.Log_Error(err.ToString());
+                    this.Log_Error("模块未加载完成，请检查错误");
+                }
             }
             var types = env.GetAllTypes();
             foreach (var t in types)
@@ -233,6 +241,7 @@ namespace UnitTest
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            CLRSharp.VBox.newcount = 0;
             var types = env.GetAllTypes();
             foreach (var t in types)
             {
@@ -246,6 +255,7 @@ namespace UnitTest
             {
                 object obj = RunTest(d);
                 Log("----RunOK----" + obj);
+                Log("Vbox new:" + CLRSharp.VBox.newcount);
             }
             catch (Exception err)
             {
@@ -367,6 +377,36 @@ namespace UnitTest
                 Log("----RunErr----");
                 Log_Error(err.ToString());
             }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            var types = env.GetAllTypes();
+            foreach (var t in types)
+            {
+                CLRSharp.ICLRType_Sharp type = env.GetType(t) as CLRSharp.ICLRType_Sharp;
+                if (type != null)
+                    type.ResetStaticInstace();
+            }
+            System.Threading.ThreadPool.QueueUserWorkItem((s) =>
+            {
+                Mono.Cecil.MethodDefinition d = this.treeView2.Tag as Mono.Cecil.MethodDefinition;
+                try
+                {
+                    object obj = RunTest(d);
+                    Log("----RunOK----" + obj);
+                }
+                catch (Exception err)
+                {
+                    Log("----RunErr----");
+                    Log_Error(err.ToString());
+                    MessageBox.Show(
+                        "=DumpInfo FirstLine Is Error Pos.=\n" +
+                        CLRSharp.ThreadContext.activeContext.Dump()
+                        + "================err===============\n" + err.Message);
+                }
+            });
+
         }
     }
 }

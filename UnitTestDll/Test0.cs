@@ -6,8 +6,95 @@ using UnitTest;
 using UnityEngine;
 namespace UnitTestDll
 {
+    class funcc
+    {
+        public uint a = 3345294836u;
+    }
     public class UlngTest
     {
+        public static void UnitTest_big()
+        {
+            funcc c = new funcc();
+            Logger.Log("a=" + c.a);
+        }
+        public static void UnitTest_sb()
+        {
+            MyClass2.b = false;
+            MyClass2.bc = (char)1;
+            MyClass2.bb = 2;
+            MyClass2.bsb = 3;
+            MyClass2.bu16 = 4;
+            MyClass2.bi16 = 5;
+            MyClass2.bu32 = 6;
+            MyClass2.bi32 = 7;
+            MyClass2.bu64 = 8;
+            MyClass2.bi64 = 9;
+        }
+        public static void UnitTest_ConvertCallParam()
+        {
+            int i = 0;
+            ulong i2 = (ulong)i;
+            Logger.test(i2);
+
+        }
+        static void dod(ulong abc)
+        {
+            Logger.Log("dod=" + abc);
+        }
+        public static void UnitTest_testSwith()
+        {
+            for (uint i = 0; i < 61; i++)
+            {
+                Logger.Log("i=" + i);
+                switch (i)
+                {
+                    case 1:     //有玩家点击准备
+                        Logger.Log(i.ToString());
+                        break;
+                    //case 3:
+                    //    Logger.Log(i.ToString());
+                    //    break;
+                    //case 4:
+                    //    Logger.Log(i.ToString());
+                    //    break;
+                    //case 9:
+                    //    Logger.Log(i.ToString());
+                    //    break;
+                    //case 10:
+                    //    Logger.Log(i.ToString());
+                    //    break;
+                    //case 11:
+                    //    Logger.Log(i.ToString());
+                    //    break;
+                    //case 13:
+                    //    Logger.Log(i.ToString());
+                    //    break;
+                    //case 20:
+                    //    Logger.Log(i.ToString());
+                    //    break;
+                    //case 21:
+                    //    Logger.Log(i.ToString());
+                    //    break;
+                    //case 22:
+                    //    Logger.Log(i.ToString());
+                    //    break;
+                    case 40:
+                        Logger.Log(i.ToString());
+                        break;
+                    case 49:
+                        Logger.Log(i.ToString());
+                        break;
+                    case 50:
+                        Logger.Log(i.ToString());
+                        break;
+                    //case 60:
+                    //    Logger.Log(i.ToString());
+                    //    break;
+                    default:
+                        break;
+                }
+            }
+        }
         public ulong aaa = 15645613;
 
         public static void UnitTest_TestThread()
@@ -111,8 +198,8 @@ namespace UnitTestDll
         }
         public enum EUIPanelID
         {
-            NULL=0,
-            INT1=1,
+            NULL = 0,
+            INT1 = 1,
             INT2,
         };
         public static void UnitTest_Out()
@@ -128,12 +215,12 @@ namespace UnitTestDll
         }
         public static void UnitTest_Arr()
         {
-            var vectors = new Vector3[] { 
+            var vectors = new Vector3[] {
                 new Vector3(335, 253, 0),
-                new Vector3(335, 2533, 0), 
+                new Vector3(335, 2533, 0),
                 new Vector3(335, 25332, 0)};
 
-            foreach(var v in vectors)
+            foreach (var v in vectors)
             {
                 Logger.Log("v=" + v.y);
             }
@@ -160,7 +247,7 @@ namespace UnitTestDll
                 {
                     return r - l;
                 });
-            foreach(var i in a)
+            foreach (var i in a)
             {
                 Logger.Log("i=" + i);
             }
@@ -174,7 +261,7 @@ namespace UnitTestDll
             Test02 t = new Test02();
             t.LogOut2(0, 1, 2, 333, 444, 5);
         }
-        
+
         public static void UnitTest_ListInit()
         {
             List<int> lst = new List<int>();
